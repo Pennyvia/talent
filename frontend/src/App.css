@@ -1,0 +1,120 @@
+body, html {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  background-color: dark;
+}
+
+.app-logo {
+   padding-center: 50px;
+}
+
+.sidebar {
+   display: flex;
+   height: 100vh;
+   float: left;
+   overflow: 'scroll initial';
+}
+
+.side-container {
+   padding-top: 30px;
+}
+
+.side-row {
+   padding: 30px;
+}
+
+.react-bootstrap-table thead {
+    position: sticky;
+    top: 0;
+    background-color: black;
+    z-index: 1021;
+    color: white;
+}
+
+td {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+table {
+  font-size: 14px;
+}
+
+.truncate {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  td:nth-child(3) {
+    display: none;
+  }
+}
+
+td div {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+th {
+  white-space: nowrap;
+}
+
+/*
+.navbar {
+  background-color:dark;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+.navbar-logo {
+  margin-right: 1rem;
+}
+
+.navbar img {
+  height: 200px;
+  width: 200px;
+  max-height: 200px;
+  max-width: 200px;
+  transform: scale(0.5);
+}
+
+.navbar h1 {
+  font-size: 1.5rem;
+  color: blue;
+  text-align: Left;
+}
+
+.navbar img {
+  object-fit: contain;
+  height: 500px;
+  width: 500px;
+}
+
+.text-light {
+  text-align: Left;
+  font-size: 48;
+
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-brand img {
+  margin-right: 0.5rem;
+}
+*/
+
+
