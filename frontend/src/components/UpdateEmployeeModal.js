@@ -68,7 +68,8 @@ const UpdateEmployeeModal = (props) => {
                             </Form.Group>
                             <Form.Group controlId="end_date">
                                     <Form.Label>end_date</Form.Label>
-                                    <Form.Control type="text" name="end_date" required defaultValue={props.employee.end_date} placeholder="" />
+                                    <Form.Control type="text" name="end_date" value={props.employee.end_date || ''}
+                                    onChange={e => props.setEndDate(e.target.value)} placeholder="" />
                             </Form.Group>
                             <Form.Group controlId="duties">
                                     <Form.Label>duties</Form.Label>

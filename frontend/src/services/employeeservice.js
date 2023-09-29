@@ -27,15 +27,13 @@ export function addEmployee(employee){
     role:employee.role.value,
     start_date:employee.start_date.value,
     end_date:employee.end_date.value,
-    duties:employee.duties.value,
-    created_at:employee.created_at.value,
-    updated_at:employee.updated_at.value
+    duties:employee.duties.value
   })
     .then(response=>response.data)
 }
 
 export function updateEmployee(empid, employee) {
-  return axios.put('http://127.0.0.1:8000/students/' + empid + '/', {
+  return axios.put('http://127.0.0.1:8000/employee/' + empid + '/', {
     name:employee.name.value,
     ssn:employee.ssn.value,
     personal_email:employee.personal_email.value,

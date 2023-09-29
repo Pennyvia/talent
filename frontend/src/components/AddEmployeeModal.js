@@ -72,14 +72,6 @@ const AddEmployeeModal = (props) => {
                                     <Form.Label>duties</Form.Label>
                                     <Form.Control type="text" name="duties" required placeholder="" />
                             </Form.Group>
-                            <Form.Group controlId="created_at">
-                                    <Form.Label>created_at</Form.Label>
-                                    <Form.Control type="text" name="created_at" required placeholder="" />
-                            </Form.Group>
-                            <Form.Group controlId="updated_at">
-                                    <Form.Label>updated_at</Form.Label>
-                                    <Form.Control type="text" name="updated_at" required placeholder="" />
-                            </Form.Group>
                             <Form.Group>
                                 <p></p>
                                 <Button variant="primary" type="submit">

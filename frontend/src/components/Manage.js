@@ -1,42 +1,44 @@
 import React,{ useEffect, useState }from 'react';
 import {Table} from 'react-bootstrap';
-
 import {Button,ButtonToolbar } from 'react-bootstrap';
 import { FaEdit } from 'react-icons/fa';
 import { RiDeleteBin5Line } from 'react-icons/ri';
-import AddStudentModal from "./AddStudentModal";
-import UpdateStudentModal from "./UpdateStudentModal";
-import { getStudents, deleteStudent } from '../services/StudentService';
+import AddEmployeeModal from "./AddEmployeeModal";
+import UpdateEmployeeModal from "./UpdateEmployeeModal";
+import { getEmployee, deleteEmployee } from '../services/employeeservice';
+import Tooltip from 'react-bootstrap/Tooltip';
 
 
 const Manage = () => {
-    const [students, setStudents] = useState([]);
+    const [employee, setEmployee] = useState([]);
     const [addModalShow, setAddModalShow] = useState(false);
     const [editModalShow, setEditModalShow] = useState(false);
-    const [editStudent, setEditStudent] = useState([]);
+    const [editEmployee, setEditEmployee] = useState([]);
     const [isUpdated, setIsUpdated] = useState(false);
+    const [showTooltip, setShowTooltip] = useState(false);
+    const [showstartdate, setShowstartdate] = useState(false);
 
     useEffect(() => {
        let mounted = true;
-       if(students.length && !isUpdated) {
+       if(employee.length && !isUpdated) {
         return;
         }
-       getStudents()
+       getEmployee()
          .then(data => {
            if(mounted) {
-             setStudents(data);
+             setEmployee(data);
            }
          })
        return () => {
           mounted = false;
           setIsUpdated(false);
        }
-     }, [isUpdated, students])
+     }, [isUpdated, employee])
 
-    const handleUpdate = (e, stu) => {
+    const handleUpdate = (e, emp) => {
         e.preventDefault();
         setEditModalShow(true);
-        setEditStudent(stu);
+        setEditEmployee(emp);
     };
 
     const handleAdd = (e) => {
@@ -44,16 +46,16 @@ const Manage = () => {
         setAddModalShow(true);
     };
 
-    const handleDelete = (e, studentId) => {
+    const handleDelete = (e, employeeId) => {
         if(window.confirm('Are you sure ?')){
             e.preventDefault();
-            deleteStudent(studentId)
+            deleteEmployee(employeeId)
             .then((result)=>{
                 alert(result);
                 setIsUpdated(true);
             },
             (error)=>{
-                alert("Failed to Delete Student");
+                alert("Failed to Delete Employee");
             })
         }
     };
@@ -66,49 +68,79 @@ const Manage = () => {
         <p id="manage"></p>
             <Table striped bordered hover className="react-bootstrap-table" id="dataTable">
                 <thead>
-                <tr>
-                  <th >ID</th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Registration No</th>
-                  <th>Email</th>
-                  <th>Course</th>
-                  <th>Action</th>
-                </tr>
+                    <tr>
+                    <th>name</th>
+                    <th>ssn</th>
+                    <th style={{width: '15%'}}>personal_email</th>
+                    <th>company</th>
+                    <th style={{width: '10%'}}>department</th>
+                    <th>role</th>
+                    <th>start_date</th>
+                    <th>end_date</th>
+                    <th style={{width: '10%'}}>duties</th>
+                    <th>created_at</th>
+                    <th>updated_at</th>
+
+                    </tr>
                 </thead>
                 <tbody>
-                  { students.map((stu) =>
+                    {employee.map((emp) =>
+                    <tr key={emp.id}>
+                    <td>{emp.name}</td>
+                    <td>{emp.ssn}</td>
+                    <td>
+                        <div
+                            onClick={() => setShowTooltip(!showTooltip)}
+                            className="truncate"
+                            >
+                            {emp.personal_email.substring(0, 20)}...
+                          </div>
 
-                  <tr key={stu.id}>
-                  <td>{stu.studentId}</td>
-                  <td>{stu.FirstName}</td>
-                  <td>{stu.LastName}</td>
-                  <td>{stu.RegistrationNo}</td>
-                  <td>{stu.Email}</td>
-                  <td>{stu.Course}</td>
+                          {showTooltip && (
+                            <Tooltip title={emp.personal_email}>
+                              {emp.personal_email}
+                            </Tooltip>
+                          )}
+                    </td>
+                    <td>{emp.company}</td>
+                    <td>{emp.department}</td>
+                    <td>{emp.role}</td>
+                    <td>
+                      <div onClick={() => setShowstartdate(!showstartdate)}>
+                        {emp.start_date.substring(0, 10)}...
+                      </div>
+
+                      {showstartdate &&
+                        <Tooltip>{emp.start_date}</Tooltip>
+                      }
+                    </td>
+                    <td>{emp.end_date}</td>
+                    <td>{emp.duties}</td>
+                    <td>{emp.created_at}</td>
+                    <td>{emp.updated_at}</td>
                   <td>
 
                   <Button className="mr-2" variant="danger"
-                    onClick={event => handleDelete(event,stu.studentId)}>
+                    onClick={event => handleDelete(event,emp.employeeId)}>
                         <RiDeleteBin5Line />
                   </Button>
                   <span>&nbsp;&nbsp;&nbsp;</span>
                   <Button className="mr-2"
-                    onClick={event => handleUpdate(event,stu)}>
+                    onClick={event => handleUpdate(event,emp)}>
                         <FaEdit />
                   </Button>
-                  <UpdateStudentModal show={editModalShow} student={editStudent} setUpdated={setIsUpdated}
-                              onHide={EditModelClose}></UpdateStudentModal>
+                  <UpdateEmployeeModal show={editModalShow} employee={editEmployee} setUpdated={setIsUpdated}
+                              onHide={EditModelClose}></UpdateEmployeeModal>
                 </td>
                 </tr>)}
               </tbody>
             </Table>
             <ButtonToolbar>
                 <Button variant="primary" onClick={handleAdd}>
-                Add Student
+                Add Employee
                 </Button>
-                <AddStudentModal show={addModalShow} setUpdated={setIsUpdated}
-                onHide={AddModelClose}></AddStudentModal>
+                <AddEmployeeModal show={addModalShow} setUpdated={setIsUpdated}
+                onHide={AddModelClose}></AddEmployeeModal>
             </ButtonToolbar>
         </div>
         </div>
